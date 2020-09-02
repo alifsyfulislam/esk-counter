@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ALIF COUNTER</title>
+    <style>
+        @font-face {
+            font-family: 'montserratextrabold';
+            src: url('asset/montserrat-extrabold-webfont.woff2') format('woff2'),
+            url('asset/montserrat-extrabold-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            background: 100% 100% no-repeat;
+            cursor: pointer;
+        }
+        body,html{
+            height: 250px;
+            width: 300px;
+            position: relative;
+        }
+        ._str{
+            position: absolute;
+        }
+        .alif_counter_box{
+            height: 250px;
+            width: 300px;
+            background: url("asset/bg.png");
+        }
+        .alif_counter_box_sq_logo{
+            height: 57px;
+            width: 57px;
+            background: url("asset/square_logo.png");
+            top: 183px;
+            left: 10px;
+        }
+        .alif_counter_box_product{
+            height: 90px;
+            width: 101px;
+            background: url("asset/product.png");
+            top: 160px;
+            left: 115px;
+        }
+        .alif_counter_box_clock{
+            height: 60px;
+            width: 238px;
+            background: url("asset/clock-stand.png");
+            top: 50px;
+            left: 36px;
+        }
+        .___alif__hour{
+            left: 7px;
+            text-align: center;
+            font-size: 38px;
+        }
+        .___alif__minute{
+            left: 86px;
+            text-align: center;
+            font-size: 38px;
+        }
+
+        .___alif__second{
+            left: 167px;
+            text-align: center;
+            font-size: 38px;
+        }
+        [class^='___alif__']{
+            height: 50px;
+            width: 70px;
+            top: 7px;
+            font-family: 'montserratextrabold';
+            letter-spacing: 15px;
+        }
+        ._zoout{
+            animation: _zoout 2s ease infinite;
+        }
+        @keyframes _zoout {
+            0%,100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+            50%{
+                transform: scale(0.75);
+                opacity: 0;
+            }
+        }
+        a{
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<a target="_blank" href="mailto:alifsyfulislam@gmail.com">
+<div class="alif_counter_box _str">
+    <div class="alif_counter_box_sq_logo _str"></div>
+    <div class="alif_counter_box_product _zoout _str"></div>
+    <div class="alif_counter_box_clock _str">
+        <span class="___alif__hour _str"></span>
+        <span class="___alif__minute _str"></span>
+        <span class="___alif__second _str"></span>
+    </div>
+</div>
+</a>
+<script type="text/javascript">
+    var displayCounter = document.querySelector('.alif_counter_box_clock');
+    var sehriSet = [
+        "3:59","3:58","3:57","3:55","3:54", "3:53","3:52","3:51","3:50","3:50", "3:49","3:49","3:48","3:48","3:47", "3:47","3:46","3:46","3:45","3:44","3:44", "3:43","3:43","3:42","3:42","4:05","4:04","4:03","4:02","4:01","4:00"
+    ];
+    setInterval(function () {
+        var today = new Date();
+        var curDate = today.getDate();
+        var curTime = today.getHours()*60*60+ today.getMinutes()*60+today.getSeconds();
+        var checkSehri = sehriSet[curDate].split(":");
+        checkSehriTime(curDate, curTime);
+        console.log('aaa');
+    },1e3);
+    function checkSehriTime(todayDate, curTime) {
+        var time = sehriSet[todayDate].split(":");
+        var setTime = time[0]*60*60 + time[1]*60;
+        var diffTime = setTime - curTime;
+
+        if (diffTime<setTime && diffTime>=0){
+            displayCounter.innerHTML = printTimer(diffTime);
+        }
+        else {
+            var lastTime = setTime+24*60*60;
+            var sehriEnd = lastTime - curTime;
+            displayCounter.innerHTML = printTimer(sehriEnd);
+        }
+    }
+    function printTimer(sec) {
+        hr = Math.floor(sec / 3600) % 24;
+        mm = Math.floor(sec / 60) % 60;
+        ss = sec % 60;
+        var x = hr < 10? "0"+hr : hr;
+        var y = mm < 10? "0"+mm : mm;
+        var z = ss < 10? "0"+ss : ss;
+        return ` <span class="___alif__hour _str">${x}</span> <span class="___alif__minute _str">${y}</span> <span class="___alif__second _str">${z}</span>`;
+    }
+</script>
+</body>
+</html>
